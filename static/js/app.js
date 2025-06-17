@@ -30,10 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // 종목 코드 검증 (6자리 숫자)
-            if (!/^\d{6}$/.test(stockCode)) {
+            // 종목 코드 검증 (한국 주식: 6자리 숫자, 해외 주식: 영문 포함)
+            const isKoreanStock = /^\d{6}$/.test(stockCode);
+            const isOverseaStock = /^[A-Z]{1,5}(\.[A-Z])?$/.test(stockCode) || /^\d{4}\.[A-Z]$/.test(stockCode);
+            
+            if (!isKoreanStock && !isOverseaStock) {
                 e.preventDefault();
-                showAlert('종목 코드는 6자리 숫자여야 합니다. (예: 005930)', 'danger');
+                showAlert('올바른 종목 코드를 입력해주세요. (한국: 005930, 미국: AAPL, 일본: 7203.T)', 'danger');
                 return;
             }
             

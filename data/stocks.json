@@ -33,5 +33,18 @@
     "decline_rate": 3.051643192488263,
     "error_message": null,
     "market_type": "KRX"
+  },
+  "AAPL": {
+    "name": "Apple",
+    "code": "AAPL",
+    "original_code": "AAPL",
+    "added_date": "2025-06-17T22:37:51.045863",
+    "last_updated": "2025-06-17T22:37:51.186952",
+    "current_price": 195.63999938964844,
+    "recent_high": 225.32451569687797,
+    "recent_high_date": "2025-03-31",
+    "decline_rate": 13.174117434768254,
+    "error_message": null,
+    "market_type": "US"
   }
 }
