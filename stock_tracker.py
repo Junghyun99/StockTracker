@@ -39,22 +39,24 @@ class StockTracker:
     def add_stock(self, stock_code: str, stock_name: str) -> bool:
         """새로운 추적 종목 추가 (한국 및 해외 주식 지원)"""
         try:
-            # 이미 존재하는 종목인지 확인
-            if stock_code in self.stocks:
-                return False
-            
             # 해외 주식인지 확인하여 적절한 접미사 추가
             formatted_code = self._format_stock_code(stock_code)
             
+            # 이미 존재하는 종목인지 확인 (formatted_code 기준)
+            if formatted_code in self.stocks:
+                logging.info(f"Stock {formatted_code} already exists")
+                return False
+            
             # yfinance로 종목 유효성 검증
             stock = yf.Ticker(formatted_code)
-            info = stock.info
             
-            if not info or 'regularMarketPrice' not in info:
-                # 기본 정보를 가져올 수 없는 경우, 히스토리 데이터로 확인
-                hist = stock.history(period="5d")
-                if hist.empty:
-                    return False
+            # 히스토리 데이터로 유효성 검증 (더 안정적)
+            hist = stock.history(period="5d")
+            if hist.empty:
+                logging.error(f"No history data found for {formatted_code}")
+                return False
+            
+            logging.info(f"Adding stock: {formatted_code} ({stock_name})")
             
             # 종목 추가
             self.stocks[formatted_code] = {
@@ -74,6 +76,7 @@ class StockTracker:
             # 초기 데이터 업데이트
             self.update_stock_data(formatted_code)
             self.save_stocks()
+            logging.info(f"Successfully added stock: {formatted_code}")
             return True
             
         except Exception as e:
@@ -82,14 +85,25 @@ class StockTracker:
     
     def _format_stock_code(self, code: str) -> str:
         """주식 코드를 yfinance 형식으로 포맷"""
+        logging.info(f"Formatting stock code: {code}")
+        
         # 이미 접미사가 있는 경우 그대로 사용
-        if '.' in code or len(code) <= 4:
+        if '.' in code:
+            logging.info(f"Code has suffix, using as is: {code}")
             return code
         
         # 6자리 숫자인 경우 한국 주식으로 간주
         if len(code) == 6 and code.isdigit():
-            return f"{code}.KS"
+            formatted = f"{code}.KS"
+            logging.info(f"Korean stock detected, formatted to: {formatted}")
+            return formatted
         
+        # 영문자가 포함된 경우 미국 주식으로 간주
+        if any(char.isalpha() for char in code):
+            logging.info(f"US stock detected, using as is: {code}")
+            return code
+        
+        logging.info(f"Unknown format, using as is: {code}")
         return code
     
     def _get_market_type(self, code: str) -> str:
