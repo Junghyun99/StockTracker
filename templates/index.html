@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}주식 추적 대시보드 - 한국 주식 추적기{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- 헤더 섹션 -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="card-title">
+                        <i class="fas fa-chart-line me-2 text-primary"></i>
+                        주식 추적 대시보드
+                    </h1>
+                    <p class="card-text text-muted">
+                        추적 중인 종목의 직전 고점 대비 하락률을 실시간으로 확인하세요
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 종목 추가 섹션 -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-plus me-2"></i>
+                        새 종목 추가
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('add_stock') }}" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="stock_code" class="form-label">종목 코드</label>
+                            <input type="text" class="form-control" id="stock_code" name="stock_code" 
+                                   placeholder="예: 005930" required>
+                            <div class="form-text">6자리 종목 코드를 입력하세요 (예: 삼성전자 005930)</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stock_name" class="form-label">종목명</label>
+                            <input type="text" class="form-control" id="stock_name" name="stock_name" 
+                                   placeholder="예: 삼성전자" required>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-plus me-2"></i>
+                                종목 추가
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 통계 카드 섹션 -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary">
+                <div class="card-body text-center text-white">
+                    <i class="fas fa-list fa-2x mb-2"></i>
+                    <h4>{{ stocks|length }}</h4>
+                    <p class="mb-0">추적 종목</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success">
+                <div class="card-body text-center text-white">
+                    <i class="fas fa-arrow-up fa-2x mb-2"></i>
+                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'low')|list|length }}</h4>
+                    <p class="mb-0">낮은 하락률 (5% 미만)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning">
+                <div class="card-body text-center text-white">
+                    <i class="fas fa-minus fa-2x mb-2"></i>
+                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'medium')|list|length }}</h4>
+                    <p class="mb-0">중간 하락률 (5-15%)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger">
+                <div class="card-body text-center text-white">
+                    <i class="fas fa-arrow-down fa-2x mb-2"></i>
+                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'high')|list|length }}</h4>
+                    <p class="mb-0">높은 하락률 (15% 이상)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 추적 종목 목록 -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        추적 종목 목록
+                    </h5>
+                    <a href="{{ url_for('refresh_data') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-sync me-1"></i>
+                        전체 새로고침
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if stocks %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>종목코드</th>
+                                        <th class="text-end">현재가</th>
+                                        <th class="text-end">최근 고점</th>
+                                        <th>고점 날짜</th>
+                                        <th class="text-end">하락률</th>
+                                        <th>최종 업데이트</th>
+                                        <th>상태</th>
+                                        <th>작업</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for stock in stocks %}
+                                    <tr class="{% if stock.status == 'error' %}table-danger{% endif %}">
+                                        <td>
+                                            <strong>{{ stock.name }}</strong>
+                                        </td>
+                                        <td>
+                                            <code>{{ stock.code }}</code>
+                                        </td>
+                                        <td class="text-end">
+                                            {% if stock.current_price_formatted %}
+                                                {{ stock.current_price_formatted }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            {% if stock.recent_high_formatted %}
+                                                {{ stock.recent_high_formatted }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if stock.recent_high_date %}
+                                                {{ stock.recent_high_date }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            {% if stock.decline_rate_formatted %}
+                                                <span class="badge bg-{% if stock.decline_status == 'low' %}success{% elif stock.decline_status == 'medium' %}warning{% else %}danger{% endif %} fs-6">
+                                                    {{ stock.decline_rate_formatted }}
+                                                </span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if stock.last_updated_formatted %}
+                                                <small class="text-muted">{{ stock.last_updated_formatted }}</small>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if stock.status == 'error' %}
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                                    오류
+                                                </span>
+                                                {% if stock.error_message %}
+                                                    <br><small class="text-muted">{{ stock.error_message[:50] }}...</small>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check me-1"></i>
+                                                    정상
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{{ url_for('remove_stock', stock_code=stock.code) }}" 
+                                               class="btn btn-outline-danger btn-sm"
+                                               onclick="return confirm('{{ stock.name }} 종목을 삭제하시겠습니까?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+                            <h4 class="text-muted">추적 중인 종목이 없습니다</h4>
+                            <p class="text-muted">위의 폼을 사용하여 첫 번째 종목을 추가해보세요.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 도움말 섹션 -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-question-circle me-2"></i>
+                        사용법 안내
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-plus me-2 text-primary"></i>종목 추가</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check me-2 text-success"></i>6자리 종목 코드를 입력하세요 (예: 005930)</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>정확한 종목명을 입력하세요</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>자동으로 .KS가 추가됩니다</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-chart-line me-2 text-info"></i>하락률 계산</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-info me-2 text-info"></i>최근 3개월 내 최고가 기준</li>
+                                <li><i class="fas fa-info me-2 text-info"></i>실시간 종가 대비 계산</li>
+                                <li><i class="fas fa-info me-2 text-info"></i>하락률에 따른 색상 구분</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 자동 새로고침 (10분마다)
+    setInterval(function() {
+        console.log('자동 새로고침 확인 중...');
+        // 실제 배포 시에는 주석 해제
+        // window.location.reload();
+    }, 600000); // 10분
+</script>
+{% endblock %}

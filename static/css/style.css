@@ -1,0 +1,179 @@
+/* 한국어 폰트 설정 */
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+/* 카드 호버 효과 */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 테이블 개선 */
+.table th {
+    border-top: none;
+    font-weight: 600;
+    background-color: var(--bs-gray-800);
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* 통계 카드 스타일 */
+.card.bg-primary,
+.card.bg-success,
+.card.bg-warning,
+.card.bg-danger {
+    border: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card.bg-primary:hover,
+.card.bg-success:hover,
+.card.bg-warning:hover,
+.card.bg-danger:hover {
+    transform: scale(1.05);
+}
+
+/* 배지 스타일 개선 */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.75em;
+}
+
+/* 폼 개선 */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* 버튼 호버 효과 */
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* 로딩 애니메이션 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--bs-primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 반응형 개선 */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .card-body .row .col-md-4 {
+        margin-bottom: 1rem;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+    }
+}
+
+/* 네비게이션 개선 */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.navbar-nav .nav-link {
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* 푸터 스타일 */
+footer {
+    margin-top: auto;
+}
+
+/* 알림 스타일 개선 */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.alert-success {
+    background-color: var(--bs-success);
+    color: white;
+}
+
+.alert-danger {
+    background-color: var(--bs-danger);
+    color: white;
+}
+
+/* 빈 상태 스타일 */
+.text-center.py-5 {
+    padding: 3rem 1rem !important;
+}
+
+.text-center.py-5 .fa-3x {
+    opacity: 0.5;
+}
+
+/* 코드 스타일 */
+code {
+    background-color: var(--bs-gray-800);
+    color: var(--bs-info);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+}
+
+/* 도움말 섹션 */
+.list-unstyled li {
+    margin-bottom: 0.5rem;
+}
+
+/* 테이블 행 호버 */
+.table-hover tbody tr:hover {
+    background-color: var(--bs-gray-800);
+}
+
+/* 상태별 행 색상 */
+.table-danger {
+    background-color: rgba(var(--bs-danger-rgb), 0.1) !important;
+}
+
+/* 스크롤바 스타일 (웹킷 브라우저) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-gray-800);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bs-gray-600);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-gray-500);
+}
