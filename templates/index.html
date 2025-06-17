@@ -171,103 +171,84 @@
                 <div class="card-body">
                     {% if stocks %}
                         <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
+                            <table class="table table-sm table-hover">
+                                <thead class="table-dark">
                                     <tr>
-                                        <th>종목명</th>
-                                        <th>시장</th>
-                                        <th>종목코드</th>
-                                        <th class="text-end">현재가</th>
-                                        <th class="text-end">최근 고점</th>
-                                        <th>고점 날짜</th>
-                                        <th class="text-end">하락률</th>
-                                        <th>최종 업데이트</th>
-                                        <th>상태</th>
-                                        <th>작업</th>
+                                        <th style="width: 20%;">종목명</th>
+                                        <th style="width: 8%;" class="text-center">시장</th>
+                                        <th style="width: 12%;" class="text-center">현재가</th>
+                                        <th style="width: 12%;" class="text-center">고점</th>
+                                        <th style="width: 10%;" class="text-center">하락률</th>
+                                        <th style="width: 12%;" class="text-center">고점일</th>
+                                        <th style="width: 10%;" class="text-center">상태</th>
+                                        <th style="width: 16%;" class="text-center">작업</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for stock in stocks %}
                                     <tr class="{% if stock.status == 'error' %}table-danger{% endif %}">
                                         <td>
-                                            <strong>{{ stock.name }}</strong>
+                                            <div class="d-flex flex-column">
+                                                <strong class="text-truncate" style="max-width: 150px;">{{ stock.name }}</strong>
+                                                <small class="text-muted">{{ stock.original_code or stock.code }}</small>
+                                            </div>
                                         </td>
-                                        <td>
-                                            <span class="badge bg-{% if stock.market_type == 'KRX' %}primary{% elif stock.market_type == 'US' %}success{% elif stock.market_type == 'TSE' %}warning{% else %}secondary{% endif %}">
+                                        <td class="text-center">
+                                            <span class="badge badge-sm bg-{% if stock.market_type == 'KRX' %}primary{% elif stock.market_type == 'US' %}success{% elif stock.market_type == 'TSE' %}warning{% else %}secondary{% endif %}">
                                                 {{ stock.market_display }}
                                             </span>
                                         </td>
-                                        <td>
-                                            <code>{{ stock.original_code or stock.code }}</code>
-                                        </td>
-                                        <td class="text-end">
+                                        <td class="text-center">
                                             {% if stock.current_price_formatted %}
-                                                {{ stock.current_price_formatted }}
+                                                <strong>{{ stock.current_price_formatted }}</strong>
                                             {% else %}
                                                 <span class="text-muted">-</span>
                                             {% endif %}
                                         </td>
-                                        <td class="text-end">
+                                        <td class="text-center">
                                             {% if stock.recent_high_formatted %}
                                                 {{ stock.recent_high_formatted }}
                                             {% else %}
                                                 <span class="text-muted">-</span>
                                             {% endif %}
                                         </td>
-                                        <td>
-                                            {% if stock.recent_high_date %}
-                                                {{ stock.recent_high_date }}
-                                            {% else %}
-                                                <span class="text-muted">-</span>
-                                            {% endif %}
-                                        </td>
-                                        <td class="text-end">
+                                        <td class="text-center">
                                             {% if stock.decline_rate_formatted %}
-                                                <span class="badge bg-{% if stock.decline_status == 'low' %}success{% elif stock.decline_status == 'medium' %}warning{% else %}danger{% endif %} fs-6">
+                                                <span class="badge bg-{% if stock.decline_status == 'low' %}success{% elif stock.decline_status == 'medium' %}warning{% else %}danger{% endif %}">
                                                     {{ stock.decline_rate_formatted }}
                                                 </span>
                                             {% else %}
                                                 <span class="text-muted">-</span>
                                             {% endif %}
                                         </td>
-                                        <td>
-                                            {% if stock.last_updated_formatted %}
-                                                <small class="text-muted">{{ stock.last_updated_formatted }}</small>
-                                            {% else %}
-                                                <span class="text-muted">-</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if stock.status == 'error' %}
-                                                <span class="badge bg-danger">
-                                                    <i class="fas fa-exclamation-triangle me-1"></i>
-                                                    오류
-                                                </span>
-                                                {% if stock.error_message %}
-                                                    <br><small class="text-muted">{{ stock.error_message[:50] }}...</small>
+                                        <td class="text-center">
+                                            <div class="d-flex flex-column align-items-center">
+                                                {% if stock.recent_high_date %}
+                                                    <small>{{ stock.recent_high_date }}</small>
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
                                                 {% endif %}
+                                                {% if stock.last_updated_formatted %}
+                                                    <small class="text-muted">{{ stock.last_updated_formatted }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            {% if stock.status == 'error' %}
+                                                <span class="badge bg-danger" title="{% if stock.error_message %}{{ stock.error_message }}{% endif %}">오류</span>
                                             {% elif stock.status == 'no_data' %}
-                                                <span class="badge bg-warning">
-                                                    <i class="fas fa-question-circle me-1"></i>
-                                                    데이터 없음
-                                                </span>
+                                                <span class="badge bg-warning">데이터없음</span>
                                             {% elif stock.status == 'outdated' %}
-                                                <span class="badge bg-secondary">
-                                                    <i class="fas fa-clock me-1"></i>
-                                                    업데이트 필요
-                                                </span>
+                                                <span class="badge bg-secondary">업데이트필요</span>
                                             {% else %}
-                                                <span class="badge bg-success">
-                                                    <i class="fas fa-check me-1"></i>
-                                                    정상
-                                                </span>
+                                                <span class="badge bg-success">정상</span>
                                             {% endif %}
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ url_for('remove_stock', stock_code=stock.code) }}" 
                                                class="btn btn-outline-danger btn-sm"
                                                onclick="return confirm('{{ stock.name }} 종목을 삭제하시겠습니까?')">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-trash"></i> 삭제
                                             </a>
                                         </td>
                                     </tr>
