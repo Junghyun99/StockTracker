@@ -59,11 +59,31 @@
                         <div class="col-12">
                             <small class="text-muted">인기 종목:</small>
                             <div class="mt-1" id="popular_stocks">
-                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="005930" data-name="삼성전자">삼성전자</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="000660" data-name="SK하이닉스">SK하이닉스</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035420" data-name="NAVER">NAVER</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035720" data-name="카카오">카카오</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="373220" data-name="LG에너지솔루션">LG에너지솔루션</button>
+                                <!-- 한국 주식 -->
+                                <div class="mb-2">
+                                    <small class="text-muted d-block">🇰🇷 한국:</small>
+                                    <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="005930" data-name="삼성전자">삼성전자</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="000660" data-name="SK하이닉스">SK하이닉스</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035420" data-name="NAVER">NAVER</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035720" data-name="카카오">카카오</button>
+                                </div>
+                                <!-- 미국 주식 -->
+                                <div class="mb-2">
+                                    <small class="text-muted d-block">🇺🇸 미국:</small>
+                                    <button type="button" class="btn btn-outline-success btn-sm me-1 mb-1" data-code="AAPL" data-name="Apple">Apple</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm me-1 mb-1" data-code="MSFT" data-name="Microsoft">Microsoft</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm me-1 mb-1" data-code="GOOGL" data-name="Google">Google</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm me-1 mb-1" data-code="TSLA" data-name="Tesla">Tesla</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm me-1 mb-1" data-code="NVDA" data-name="NVIDIA">NVIDIA</button>
+                                </div>
+                                <!-- 일본 주식 -->
+                                <div class="mb-2">
+                                    <small class="text-muted d-block">🇯🇵 일본:</small>
+                                    <button type="button" class="btn btn-outline-warning btn-sm me-1 mb-1" data-code="7203.T" data-name="Toyota">도요타</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm me-1 mb-1" data-code="6758.T" data-name="Sony">소니</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm me-1 mb-1" data-code="7974.T" data-name="Nintendo">닌텐도</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm me-1 mb-1" data-code="9984.T" data-name="SoftBank">소프트뱅크</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,6 +175,7 @@
                                 <thead>
                                     <tr>
                                         <th>종목명</th>
+                                        <th>시장</th>
                                         <th>종목코드</th>
                                         <th class="text-end">현재가</th>
                                         <th class="text-end">최근 고점</th>
@@ -172,7 +193,12 @@
                                             <strong>{{ stock.name }}</strong>
                                         </td>
                                         <td>
-                                            <code>{{ stock.code }}</code>
+                                            <span class="badge bg-{% if stock.market_type == 'KRX' %}primary{% elif stock.market_type == 'US' %}success{% elif stock.market_type == 'TSE' %}warning{% else %}secondary{% endif %}">
+                                                {{ stock.market_display }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <code>{{ stock.original_code or stock.code }}</code>
                                         </td>
                                         <td class="text-end">
                                             {% if stock.current_price_formatted %}

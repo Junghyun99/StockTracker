@@ -135,7 +135,10 @@ class StockTracker:
             # 최근 고점 찾기 (최근 3개월 중 최고가)
             recent_high = float(hist['High'].max())
             recent_high_date_idx = hist['High'].idxmax()
-            recent_high_date = str(recent_high_date_idx.date())
+            try:
+                recent_high_date = recent_high_date_idx.strftime('%Y-%m-%d')
+            except:
+                recent_high_date = str(recent_high_date_idx)[:10]
             
             # 하락률 계산
             decline_rate = ((recent_high - current_price) / recent_high) * 100
