@@ -1,1 +1,13 @@
-{}
+{
+  "005930.KS": {
+    "name": "삼성전자",
+    "code": "005930.KS",
+    "added_date": "2025-06-17T14:33:10.811077",
+    "last_updated": "2025-06-17T14:34:50.291899",
+    "current_price": 57200.0,
+    "recent_high": 61633.81877022654,
+    "recent_high_date": "2025-03-27",
+    "decline_rate": 7.193808299881603,
+    "error_message": null
+  }
+}

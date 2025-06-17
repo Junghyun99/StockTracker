@@ -32,20 +32,58 @@
                     </h5>
                 </div>
                 <div class="card-body">
+                    <!-- 종목 검색 섹션 -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="stock_search" class="form-label">종목 검색</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="stock_search" 
+                                       placeholder="종목명을 입력하세요 (예: 삼성전자, 네이버, 카카오)" 
+                                       autocomplete="off">
+                                <button class="btn btn-outline-secondary" type="button" id="search_btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div id="search_results" class="mt-2" style="display: none;">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div id="search_results_list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 인기 종목 버튼들 -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <small class="text-muted">인기 종목:</small>
+                            <div class="mt-1" id="popular_stocks">
+                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="005930" data-name="삼성전자">삼성전자</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="000660" data-name="SK하이닉스">SK하이닉스</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035420" data-name="NAVER">NAVER</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="035720" data-name="카카오">카카오</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm me-1 mb-1" data-code="373220" data-name="LG에너지솔루션">LG에너지솔루션</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 종목 추가 폼 -->
                     <form method="POST" action="{{ url_for('add_stock') }}" class="row g-3">
                         <div class="col-md-4">
                             <label for="stock_code" class="form-label">종목 코드</label>
                             <input type="text" class="form-control" id="stock_code" name="stock_code" 
-                                   placeholder="예: 005930" required>
-                            <div class="form-text">6자리 종목 코드를 입력하세요 (예: 삼성전자 005930)</div>
+                                   placeholder="예: 005930" required readonly>
+                            <div class="form-text">위에서 종목을 검색하거나 선택하세요</div>
                         </div>
                         <div class="col-md-4">
                             <label for="stock_name" class="form-label">종목명</label>
                             <input type="text" class="form-control" id="stock_name" name="stock_name" 
-                                   placeholder="예: 삼성전자" required>
+                                   placeholder="예: 삼성전자" required readonly>
+                            <div class="form-text">종목 코드와 함께 자동 입력됩니다</div>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-primary w-100" id="add_stock_btn" disabled>
                                 <i class="fas fa-plus me-2"></i>
                                 종목 추가
                             </button>

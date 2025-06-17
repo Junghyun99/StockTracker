@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 5000); // 5초 후 자동 닫기
     
+    // 종목 검색 기능 초기화
+    initStockSearch();
+    
     // 폼 검증
     const addStockForm = document.querySelector('form[action="/add_stock"]');
     if (addStockForm) {
@@ -283,5 +286,187 @@ window.addEventListener('online', function() {
 window.addEventListener('offline', function() {
     showAlert('인터넷 연결이 끊어졌습니다. 연결을 확인해주세요.', 'warning');
 });
+
+// 종목 검색 기능 초기화
+function initStockSearch() {
+    const searchInput = document.getElementById('stock_search');
+    const searchBtn = document.getElementById('search_btn');
+    const searchResults = document.getElementById('search_results');
+    const searchResultsList = document.getElementById('search_results_list');
+    const stockCodeInput = document.getElementById('stock_code');
+    const stockNameInput = document.getElementById('stock_name');
+    const addStockBtn = document.getElementById('add_stock_btn');
+    
+    // 인기 종목 버튼 클릭 이벤트
+    const popularStockBtns = document.querySelectorAll('#popular_stocks button');
+    popularStockBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const code = this.getAttribute('data-code');
+            const name = this.getAttribute('data-name');
+            selectStock(code, name);
+        });
+    });
+    
+    // 검색 입력 이벤트
+    if (searchInput) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+            
+            if (query.length < 2) {
+                hideSearchResults();
+                return;
+            }
+            
+            // 디바운스 적용 (500ms 후 검색)
+            searchTimeout = setTimeout(function() {
+                searchStocks(query);
+            }, 500);
+        });
+        
+        // 엔터키 검색
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    searchStocks(query);
+                }
+            }
+        });
+    }
+    
+    // 검색 버튼 클릭
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            const query = searchInput.value.trim();
+            if (query.length >= 2) {
+                searchStocks(query);
+            } else {
+                showAlert('검색어는 2글자 이상 입력해주세요.', 'warning');
+            }
+        });
+    }
+    
+    // 검색 결과 숨기기 (외부 클릭 시)
+    document.addEventListener('click', function(e) {
+        if (!searchResults.contains(e.target) && !searchInput.contains(e.target)) {
+            hideSearchResults();
+        }
+    });
+}
+
+// 종목 검색 실행
+function searchStocks(query) {
+    const searchBtn = document.getElementById('search_btn');
+    const originalText = searchBtn.innerHTML;
+    
+    // 로딩 상태 표시
+    searchBtn.innerHTML = '<span class="loading"></span>';
+    searchBtn.disabled = true;
+    
+    fetch(`/api/search_stock?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displaySearchResults(data.results);
+            } else {
+                showAlert(data.error || '검색 중 오류가 발생했습니다.', 'danger');
+                hideSearchResults();
+            }
+        })
+        .catch(error => {
+            console.error('검색 오류:', error);
+            showAlert('검색 중 오류가 발생했습니다.', 'danger');
+            hideSearchResults();
+        })
+        .finally(() => {
+            // 로딩 상태 해제
+            searchBtn.innerHTML = originalText;
+            searchBtn.disabled = false;
+        });
+}
+
+// 검색 결과 표시
+function displaySearchResults(results) {
+    const searchResults = document.getElementById('search_results');
+    const searchResultsList = document.getElementById('search_results_list');
+    
+    if (!results || results.length === 0) {
+        searchResultsList.innerHTML = '<p class="text-muted mb-0">검색 결과가 없습니다.</p>';
+        searchResults.style.display = 'block';
+        return;
+    }
+    
+    let html = '';
+    results.forEach(function(stock) {
+        html += `
+            <div class="search-result-item d-flex justify-content-between align-items-center py-2 px-2 border-bottom" 
+                 style="cursor: pointer;" 
+                 data-code="${stock.code}" 
+                 data-name="${stock.name}">
+                <div>
+                    <strong>${stock.name}</strong>
+                    <br>
+                    <small class="text-muted">${stock.code} (${stock.market || 'KOSPI/KOSDAQ'})</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        `;
+    });
+    
+    searchResultsList.innerHTML = html;
+    searchResults.style.display = 'block';
+    
+    // 검색 결과 항목 클릭 이벤트
+    const resultItems = searchResultsList.querySelectorAll('.search-result-item');
+    resultItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            const code = this.getAttribute('data-code');
+            const name = this.getAttribute('data-name');
+            selectStock(code, name);
+        });
+    });
+}
+
+// 검색 결과 숨기기
+function hideSearchResults() {
+    const searchResults = document.getElementById('search_results');
+    if (searchResults) {
+        searchResults.style.display = 'none';
+    }
+}
+
+// 종목 선택
+function selectStock(code, name) {
+    const stockCodeInput = document.getElementById('stock_code');
+    const stockNameInput = document.getElementById('stock_name');
+    const addStockBtn = document.getElementById('add_stock_btn');
+    const searchInput = document.getElementById('stock_search');
+    
+    // 입력 필드에 값 설정
+    if (stockCodeInput) stockCodeInput.value = code;
+    if (stockNameInput) stockNameInput.value = name;
+    
+    // 추가 버튼 활성화
+    if (addStockBtn) {
+        addStockBtn.disabled = false;
+        addStockBtn.classList.remove('btn-secondary');
+        addStockBtn.classList.add('btn-primary');
+    }
+    
+    // 검색 입력 필드 클리어
+    if (searchInput) searchInput.value = '';
+    
+    // 검색 결과 숨기기
+    hideSearchResults();
+    
+    // 성공 메시지
+    showAlert(`${name} (${code}) 종목이 선택되었습니다.`, 'success');
+}
 
 console.log('한국 주식 추적기 JavaScript 로드 완료');

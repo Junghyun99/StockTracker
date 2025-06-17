@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from stock_tracker import StockTracker
+from stock_search import StockSearcher
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -9,8 +10,9 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key-change-in-production")
 
-# Initialize stock tracker
+# Initialize stock tracker and searcher
 tracker = StockTracker()
+searcher = StockSearcher()
 
 @app.route('/')
 def index():
@@ -79,6 +81,56 @@ def refresh_data():
         flash(f'데이터 새로고침에 실패했습니다: {str(e)}', 'error')
     
     return redirect(url_for('index'))
+
+@app.route('/api/search_stock')
+def search_stock():
+    """종목명으로 종목 검색 API"""
+    try:
+        query = request.args.get('q', '').strip()
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': '검색어를 입력해주세요.'
+            })
+        
+        if len(query) < 2:
+            return jsonify({
+                'success': False,
+                'error': '검색어는 2글자 이상 입력해주세요.'
+            })
+        
+        # 종목 검색
+        results = searcher.search_stock_by_name(query)
+        
+        return jsonify({
+            'success': True,
+            'results': results,
+            'count': len(results)
+        })
+        
+    except Exception as e:
+        logging.error(f"Error searching stock: {e}")
+        return jsonify({
+            'success': False,
+            'error': '검색 중 오류가 발생했습니다.'
+        }), 500
+
+@app.route('/api/popular_stocks')
+def popular_stocks():
+    """인기 종목 목록 API"""
+    try:
+        stocks = searcher.get_popular_stocks()
+        return jsonify({
+            'success': True,
+            'stocks': stocks,
+            'count': len(stocks)
+        })
+    except Exception as e:
+        logging.error(f"Error getting popular stocks: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 @app.route('/api/stock_status')
 def stock_status():
