@@ -9,5 +9,16 @@
     "recent_high_date": "2025-03-27",
     "decline_rate": 7.193808299881603,
     "error_message": null
+  },
+  "000660.KS": {
+    "name": "SK하이닉스",
+    "code": "000660.KS",
+    "added_date": "2025-06-17T22:25:33.092380",
+    "last_updated": "2025-06-17T22:25:33.485902",
+    "current_price": 249000.0,
+    "recent_high": 260000.0,
+    "recent_high_date": "2025-06-17",
+    "decline_rate": 4.230769230769231,
+    "error_message": null
   }
 }

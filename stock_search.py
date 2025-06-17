@@ -111,7 +111,150 @@ class StockSearcher:
             'CU': {'code': '282330', 'market': 'KOSPI'}, # BGF리테일
             'GS25': {'code': '007070', 'market': 'KOSPI'}, # GS리테일
             '세븐일레븐': {'code': '005750', 'market': 'KOSPI'}, # 롯데지주
-            '미니스톱': {'code': '097230', 'market': 'KOSPI'} # 롯데 계열
+            '미니스톱': {'code': '097230', 'market': 'KOSPI'}, # 롯데 계열
+            
+            # 미국 주식
+            'Apple': {'code': 'AAPL', 'market': 'NASDAQ', 'suffix': ''},
+            '애플': {'code': 'AAPL', 'market': 'NASDAQ', 'suffix': ''},
+            'Microsoft': {'code': 'MSFT', 'market': 'NASDAQ', 'suffix': ''},
+            '마이크로소프트': {'code': 'MSFT', 'market': 'NASDAQ', 'suffix': ''},
+            'Google': {'code': 'GOOGL', 'market': 'NASDAQ', 'suffix': ''},
+            '구글': {'code': 'GOOGL', 'market': 'NASDAQ', 'suffix': ''},
+            'Alphabet': {'code': 'GOOGL', 'market': 'NASDAQ', 'suffix': ''},
+            'Amazon': {'code': 'AMZN', 'market': 'NASDAQ', 'suffix': ''},
+            '아마존': {'code': 'AMZN', 'market': 'NASDAQ', 'suffix': ''},
+            'Tesla': {'code': 'TSLA', 'market': 'NASDAQ', 'suffix': ''},
+            '테슬라': {'code': 'TSLA', 'market': 'NASDAQ', 'suffix': ''},
+            'Meta': {'code': 'META', 'market': 'NASDAQ', 'suffix': ''},
+            '메타': {'code': 'META', 'market': 'NASDAQ', 'suffix': ''},
+            'Facebook': {'code': 'META', 'market': 'NASDAQ', 'suffix': ''},
+            '페이스북': {'code': 'META', 'market': 'NASDAQ', 'suffix': ''},
+            'NVIDIA': {'code': 'NVDA', 'market': 'NASDAQ', 'suffix': ''},
+            '엔비디아': {'code': 'NVDA', 'market': 'NASDAQ', 'suffix': ''},
+            'Netflix': {'code': 'NFLX', 'market': 'NASDAQ', 'suffix': ''},
+            '넷플릭스': {'code': 'NFLX', 'market': 'NASDAQ', 'suffix': ''},
+            'Intel': {'code': 'INTC', 'market': 'NASDAQ', 'suffix': ''},
+            '인텔': {'code': 'INTC', 'market': 'NASDAQ', 'suffix': ''},
+            'AMD': {'code': 'AMD', 'market': 'NASDAQ', 'suffix': ''},
+            'Oracle': {'code': 'ORCL', 'market': 'NYSE', 'suffix': ''},
+            '오라클': {'code': 'ORCL', 'market': 'NYSE', 'suffix': ''},
+            'Salesforce': {'code': 'CRM', 'market': 'NYSE', 'suffix': ''},
+            '세일즈포스': {'code': 'CRM', 'market': 'NYSE', 'suffix': ''},
+            'JPMorgan': {'code': 'JPM', 'market': 'NYSE', 'suffix': ''},
+            'JP모건': {'code': 'JPM', 'market': 'NYSE', 'suffix': ''},
+            'Bank of America': {'code': 'BAC', 'market': 'NYSE', 'suffix': ''},
+            '뱅크오브아메리카': {'code': 'BAC', 'market': 'NYSE', 'suffix': ''},
+            'Wells Fargo': {'code': 'WFC', 'market': 'NYSE', 'suffix': ''},
+            '웰스파고': {'code': 'WFC', 'market': 'NYSE', 'suffix': ''},
+            'Goldman Sachs': {'code': 'GS', 'market': 'NYSE', 'suffix': ''},
+            '골드만삭스': {'code': 'GS', 'market': 'NYSE', 'suffix': ''},
+            'Coca-Cola': {'code': 'KO', 'market': 'NYSE', 'suffix': ''},
+            '코카콜라': {'code': 'KO', 'market': 'NYSE', 'suffix': ''},
+            'PepsiCo': {'code': 'PEP', 'market': 'NASDAQ', 'suffix': ''},
+            '펩시': {'code': 'PEP', 'market': 'NASDAQ', 'suffix': ''},
+            'McDonald\'s': {'code': 'MCD', 'market': 'NYSE', 'suffix': ''},
+            '맥도날드': {'code': 'MCD', 'market': 'NYSE', 'suffix': ''},
+            'Nike': {'code': 'NKE', 'market': 'NYSE', 'suffix': ''},
+            '나이키': {'code': 'NKE', 'market': 'NYSE', 'suffix': ''},
+            'Disney': {'code': 'DIS', 'market': 'NYSE', 'suffix': ''},
+            '디즈니': {'code': 'DIS', 'market': 'NYSE', 'suffix': ''},
+            'Johnson & Johnson': {'code': 'JNJ', 'market': 'NYSE', 'suffix': ''},
+            '존슨앤존슨': {'code': 'JNJ', 'market': 'NYSE', 'suffix': ''},
+            'Pfizer': {'code': 'PFE', 'market': 'NYSE', 'suffix': ''},
+            '화이자': {'code': 'PFE', 'market': 'NYSE', 'suffix': ''},
+            'Moderna': {'code': 'MRNA', 'market': 'NASDAQ', 'suffix': ''},
+            '모더나': {'code': 'MRNA', 'market': 'NASDAQ', 'suffix': ''},
+            'Zoom': {'code': 'ZM', 'market': 'NASDAQ', 'suffix': ''},
+            '줌': {'code': 'ZM', 'market': 'NASDAQ', 'suffix': ''},
+            'Slack': {'code': 'WORK', 'market': 'NYSE', 'suffix': ''},
+            '슬랙': {'code': 'WORK', 'market': 'NYSE', 'suffix': ''},
+            'Spotify': {'code': 'SPOT', 'market': 'NYSE', 'suffix': ''},
+            '스포티파이': {'code': 'SPOT', 'market': 'NYSE', 'suffix': ''},
+            'Uber': {'code': 'UBER', 'market': 'NYSE', 'suffix': ''},
+            '우버': {'code': 'UBER', 'market': 'NYSE', 'suffix': ''},
+            'Airbnb': {'code': 'ABNB', 'market': 'NASDAQ', 'suffix': ''},
+            '에어비앤비': {'code': 'ABNB', 'market': 'NASDAQ', 'suffix': ''},
+            'PayPal': {'code': 'PYPL', 'market': 'NASDAQ', 'suffix': ''},
+            '페이팔': {'code': 'PYPL', 'market': 'NASDAQ', 'suffix': ''},
+            'Visa': {'code': 'V', 'market': 'NYSE', 'suffix': ''},
+            '비자': {'code': 'V', 'market': 'NYSE', 'suffix': ''},
+            'Mastercard': {'code': 'MA', 'market': 'NYSE', 'suffix': ''},
+            '마스터카드': {'code': 'MA', 'market': 'NYSE', 'suffix': ''},
+            'Square': {'code': 'SQ', 'market': 'NYSE', 'suffix': ''},
+            '스퀘어': {'code': 'SQ', 'market': 'NYSE', 'suffix': ''},
+            'Twitter': {'code': 'TWTR', 'market': 'NYSE', 'suffix': ''},
+            '트위터': {'code': 'TWTR', 'market': 'NYSE', 'suffix': ''},
+            'Snapchat': {'code': 'SNAP', 'market': 'NYSE', 'suffix': ''},
+            '스냅챗': {'code': 'SNAP', 'market': 'NYSE', 'suffix': ''},
+            'Pinterest': {'code': 'PINS', 'market': 'NYSE', 'suffix': ''},
+            '핀터레스트': {'code': 'PINS', 'market': 'NYSE', 'suffix': ''},
+            
+            # 일본 주식
+            'Toyota': {'code': '7203', 'market': 'TSE', 'suffix': '.T'},
+            '도요타': {'code': '7203', 'market': 'TSE', 'suffix': '.T'},
+            'Sony': {'code': '6758', 'market': 'TSE', 'suffix': '.T'},
+            '소니': {'code': '6758', 'market': 'TSE', 'suffix': '.T'},
+            'Nintendo': {'code': '7974', 'market': 'TSE', 'suffix': '.T'},
+            '닌텐도': {'code': '7974', 'market': 'TSE', 'suffix': '.T'},
+            'SoftBank': {'code': '9984', 'market': 'TSE', 'suffix': '.T'},
+            '소프트뱅크': {'code': '9984', 'market': 'TSE', 'suffix': '.T'},
+            'Honda': {'code': '7267', 'market': 'TSE', 'suffix': '.T'},
+            '혼다': {'code': '7267', 'market': 'TSE', 'suffix': '.T'},
+            'Nissan': {'code': '7201', 'market': 'TSE', 'suffix': '.T'},
+            '닛산': {'code': '7201', 'market': 'TSE', 'suffix': '.T'},
+            'Panasonic': {'code': '6752', 'market': 'TSE', 'suffix': '.T'},
+            '파나소닉': {'code': '6752', 'market': 'TSE', 'suffix': '.T'},
+            'Canon': {'code': '7751', 'market': 'TSE', 'suffix': '.T'},
+            '캐논': {'code': '7751', 'market': 'TSE', 'suffix': '.T'},
+            'Olympus': {'code': '7733', 'market': 'TSE', 'suffix': '.T'},
+            '올림푸스': {'code': '7733', 'market': 'TSE', 'suffix': '.T'},
+            'Fujitsu': {'code': '6702', 'market': 'TSE', 'suffix': '.T'},
+            '후지쯔': {'code': '6702', 'market': 'TSE', 'suffix': '.T'},
+            'Mitsubishi': {'code': '8058', 'market': 'TSE', 'suffix': '.T'},
+            '미쓰비시': {'code': '8058', 'market': 'TSE', 'suffix': '.T'},
+            'Nomura': {'code': '8604', 'market': 'TSE', 'suffix': '.T'},
+            '노무라': {'code': '8604', 'market': 'TSE', 'suffix': '.T'},
+            'Rakuten': {'code': '4755', 'market': 'TSE', 'suffix': '.T'},
+            '라쿠텐': {'code': '4755', 'market': 'TSE', 'suffix': '.T'},
+            
+            # 유럽 주식
+            'ASML': {'code': 'ASML', 'market': 'NASDAQ', 'suffix': ''},
+            'Nestle': {'code': 'NSRGY', 'market': 'OTC', 'suffix': ''},
+            '네슬레': {'code': 'NSRGY', 'market': 'OTC', 'suffix': ''},
+            'LVMH': {'code': 'LVMUY', 'market': 'OTC', 'suffix': ''},
+            'SAP': {'code': 'SAP', 'market': 'NYSE', 'suffix': ''},
+            'Spotify': {'code': 'SPOT', 'market': 'NYSE', 'suffix': ''},
+            'Adidas': {'code': 'ADDYY', 'market': 'OTC', 'suffix': ''},
+            '아디다스': {'code': 'ADDYY', 'market': 'OTC', 'suffix': ''},
+            'BMW': {'code': 'BMWYY', 'market': 'OTC', 'suffix': ''},
+            'Mercedes-Benz': {'code': 'MBGAF', 'market': 'OTC', 'suffix': ''},
+            '메르세데스': {'code': 'MBGAF', 'market': 'OTC', 'suffix': ''},
+            'Volkswagen': {'code': 'VWAGY', 'market': 'OTC', 'suffix': ''},
+            '폭스바겐': {'code': 'VWAGY', 'market': 'OTC', 'suffix': ''},
+            'Siemens': {'code': 'SIEGY', 'market': 'OTC', 'suffix': ''},
+            '지멘스': {'code': 'SIEGY', 'market': 'OTC', 'suffix': ''},
+            
+            # 중국 주식 (ADR)
+            'Alibaba': {'code': 'BABA', 'market': 'NYSE', 'suffix': ''},
+            '알리바바': {'code': 'BABA', 'market': 'NYSE', 'suffix': ''},
+            'Tencent': {'code': 'TCEHY', 'market': 'OTC', 'suffix': ''},
+            '텐센트': {'code': 'TCEHY', 'market': 'OTC', 'suffix': ''},
+            'Baidu': {'code': 'BIDU', 'market': 'NASDAQ', 'suffix': ''},
+            '바이두': {'code': 'BIDU', 'market': 'NASDAQ', 'suffix': ''},
+            'JD.com': {'code': 'JD', 'market': 'NASDAQ', 'suffix': ''},
+            '징동': {'code': 'JD', 'market': 'NASDAQ', 'suffix': ''},
+            'NIO': {'code': 'NIO', 'market': 'NYSE', 'suffix': ''},
+            '니오': {'code': 'NIO', 'market': 'NYSE', 'suffix': ''},
+            'XPeng': {'code': 'XPEV', 'market': 'NYSE', 'suffix': ''},
+            '샤오펑': {'code': 'XPEV', 'market': 'NYSE', 'suffix': ''},
+            'Li Auto': {'code': 'LI', 'market': 'NASDAQ', 'suffix': ''},
+            '리오토': {'code': 'LI', 'market': 'NASDAQ', 'suffix': ''},
+            'Pinduoduo': {'code': 'PDD', 'market': 'NASDAQ', 'suffix': ''},
+            '핀둬둬': {'code': 'PDD', 'market': 'NASDAQ', 'suffix': ''},
+            'NetEase': {'code': 'NTES', 'market': 'NASDAQ', 'suffix': ''},
+            '넷이즈': {'code': 'NTES', 'market': 'NASDAQ', 'suffix': ''},
+            'Bilibili': {'code': 'BILI', 'market': 'NASDAQ', 'suffix': ''},
+            '빌리빌리': {'code': 'BILI', 'market': 'NASDAQ', 'suffix': ''}
         }
     
     def search_by_name_naver(self, stock_name: str) -> List[Dict]:
@@ -236,7 +379,7 @@ class StockSearcher:
         unique_results = {}
         for result in results:
             code = result['code']
-            if code not in unique_results and len(code) == 6 and code.isdigit():
+            if code not in unique_results:
                 unique_results[code] = result
         
         # 결과 정렬 (이름 일치도 기준)
@@ -253,20 +396,22 @@ class StockSearcher:
         for name, info in self.stock_database.items():
             name_lower = name.lower()
             
-            # 완전 일치
-            if query == name_lower:
+            # 완전 일치 또는 부분 일치
+            if query == name_lower or query in name_lower or name_lower in query:
+                # suffix가 있으면 사용, 없으면 기본값 설정
+                suffix = info.get('suffix', '')
+                if not suffix:
+                    # 한국 주식이면 .KS 추가
+                    if info['market'] in ['KOSPI', 'KOSDAQ']:
+                        suffix = '.KS'
+                
+                # full_code 생성
+                full_code = f"{info['code']}{suffix}" if suffix else info['code']
+                
                 results.append({
                     'name': name,
                     'code': info['code'],
-                    'full_code': f"{info['code']}.KS",
-                    'market': info['market']
-                })
-            # 부분 일치
-            elif query in name_lower or name_lower in query:
-                results.append({
-                    'name': name,
-                    'code': info['code'],
-                    'full_code': f"{info['code']}.KS",
+                    'full_code': full_code,
                     'market': info['market']
                 })
         

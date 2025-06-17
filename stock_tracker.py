@@ -37,14 +37,17 @@ class StockTracker:
             logging.error(f"Error saving stocks data: {e}")
     
     def add_stock(self, stock_code: str, stock_name: str) -> bool:
-        """새로운 추적 종목 추가"""
+        """새로운 추적 종목 추가 (한국 및 해외 주식 지원)"""
         try:
             # 이미 존재하는 종목인지 확인
             if stock_code in self.stocks:
                 return False
             
+            # 해외 주식인지 확인하여 적절한 접미사 추가
+            formatted_code = self._format_stock_code(stock_code)
+            
             # yfinance로 종목 유효성 검증
-            stock = yf.Ticker(stock_code)
+            stock = yf.Ticker(formatted_code)
             info = stock.info
             
             if not info or 'regularMarketPrice' not in info:
@@ -54,26 +57,51 @@ class StockTracker:
                     return False
             
             # 종목 추가
-            self.stocks[stock_code] = {
+            self.stocks[formatted_code] = {
                 'name': stock_name,
-                'code': stock_code,
+                'code': formatted_code,
+                'original_code': stock_code,
                 'added_date': datetime.now().isoformat(),
                 'last_updated': None,
                 'current_price': None,
                 'recent_high': None,
                 'recent_high_date': None,
                 'decline_rate': None,
-                'error_message': None
+                'error_message': None,
+                'market_type': self._get_market_type(formatted_code)
             }
             
             # 초기 데이터 업데이트
-            self.update_stock_data(stock_code)
+            self.update_stock_data(formatted_code)
             self.save_stocks()
             return True
             
         except Exception as e:
             logging.error(f"Error adding stock {stock_code}: {e}")
             return False
+    
+    def _format_stock_code(self, code: str) -> str:
+        """주식 코드를 yfinance 형식으로 포맷"""
+        # 이미 접미사가 있는 경우 그대로 사용
+        if '.' in code or len(code) <= 4:
+            return code
+        
+        # 6자리 숫자인 경우 한국 주식으로 간주
+        if len(code) == 6 and code.isdigit():
+            return f"{code}.KS"
+        
+        return code
+    
+    def _get_market_type(self, code: str) -> str:
+        """주식 코드로부터 시장 유형 판단"""
+        if code.endswith('.KS'):
+            return 'KRX'
+        elif code.endswith('.T'):
+            return 'TSE'
+        elif any(char.isalpha() for char in code) and not '.' in code:
+            return 'US'
+        else:
+            return 'OTHER'
     
     def remove_stock(self, stock_code: str) -> bool:
         """추적 종목 제거"""
@@ -87,7 +115,7 @@ class StockTracker:
             logging.error(f"Error removing stock {stock_code}: {e}")
             return False
     
-    def calculate_recent_high_decline(self, stock_code: str) -> Tuple[Optional[float], Optional[float], Optional[str]]:
+    def calculate_recent_high_decline(self, stock_code: str) -> Tuple[Optional[float], Optional[float], Optional[str], Optional[float]]:
         """직전 고점 대비 하락률 계산"""
         try:
             stock = yf.Ticker(stock_code)
@@ -99,14 +127,15 @@ class StockTracker:
             hist = stock.history(start=start_date, end=end_date)
             
             if hist.empty:
-                return None, None, "데이터 없음"
+                return None, None, None, None
             
             # 현재 가격 (최신 종가)
             current_price = float(hist['Close'].iloc[-1])
             
             # 최근 고점 찾기 (최근 3개월 중 최고가)
             recent_high = float(hist['High'].max())
-            recent_high_date = hist['High'].idxmax().strftime('%Y-%m-%d')
+            recent_high_date_idx = hist['High'].idxmax()
+            recent_high_date = str(recent_high_date_idx.date())
             
             # 하락률 계산
             decline_rate = ((recent_high - current_price) / recent_high) * 100
@@ -166,15 +195,27 @@ class StockTracker:
                 'decline_rate': data.get('decline_rate'),
                 'last_updated': data.get('last_updated'),
                 'error_message': data.get('error_message'),
-                'status': 'error' if data.get('error_message') else 'success'
+                'status': 'error' if data.get('error_message') else 'success',
+                'market_type': data.get('market_type', 'KRX'),
+                'original_code': data.get('original_code', stock_code)
             }
+            
+            # 시장 타입에 따른 가격 포맷팅
+            market_type = stock_info['market_type']
+            currency_symbol = self._get_currency_symbol(market_type)
             
             # 가격 포맷팅
             if stock_info['current_price']:
-                stock_info['current_price_formatted'] = f"{stock_info['current_price']:,.0f}원"
+                if market_type == 'KRX':
+                    stock_info['current_price_formatted'] = f"{stock_info['current_price']:,.0f}원"
+                else:
+                    stock_info['current_price_formatted'] = f"{currency_symbol}{stock_info['current_price']:,.2f}"
             
             if stock_info['recent_high']:
-                stock_info['recent_high_formatted'] = f"{stock_info['recent_high']:,.0f}원"
+                if market_type == 'KRX':
+                    stock_info['recent_high_formatted'] = f"{stock_info['recent_high']:,.0f}원"
+                else:
+                    stock_info['recent_high_formatted'] = f"{currency_symbol}{stock_info['recent_high']:,.2f}"
             
             # 하락률 포맷팅
             if stock_info['decline_rate'] is not None:
@@ -196,9 +237,33 @@ class StockTracker:
                 except:
                     stock_info['last_updated_formatted'] = stock_info['last_updated']
             
+            # 시장 표시명 추가
+            stock_info['market_display'] = self._get_market_display_name(market_type)
+            
             stocks_list.append(stock_info)
         
         # 하락률 순으로 정렬 (높은 하락률부터)
         stocks_list.sort(key=lambda x: x.get('decline_rate', 0), reverse=True)
         
         return stocks_list
+    
+    def _get_currency_symbol(self, market_type: str) -> str:
+        """시장 타입에 따른 통화 기호 반환"""
+        if market_type == 'KRX':
+            return '₩'
+        elif market_type == 'TSE':
+            return '¥'
+        elif market_type == 'US':
+            return '$'
+        else:
+            return '$'
+    
+    def _get_market_display_name(self, market_type: str) -> str:
+        """시장 타입에 따른 표시명 반환"""
+        market_names = {
+            'KRX': '한국',
+            'TSE': '일본',
+            'US': '미국',
+            'OTHER': '기타'
+        }
+        return market_names.get(market_type, '기타')
