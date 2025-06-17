@@ -20,5 +20,18 @@
     "recent_high_date": "2025-06-17",
     "decline_rate": 4.230769230769231,
     "error_message": null
+  },
+  "035420.KS": {
+    "name": "NAVER",
+    "code": "035420.KS",
+    "original_code": "035420.KS",
+    "added_date": "2025-06-17T22:34:09.813135",
+    "last_updated": "2025-06-17T22:34:10.021646",
+    "current_price": 206500.0,
+    "recent_high": 213000.0,
+    "recent_high_date": "2025-06-17",
+    "decline_rate": 3.051643192488263,
+    "error_message": null,
+    "market_type": "KRX"
   }
 }

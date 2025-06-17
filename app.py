@@ -40,10 +40,7 @@ def add_stock():
         return redirect(url_for('index'))
     
     try:
-        # 종목 코드에 .KS 추가 (한국 주식)
-        if not stock_code.endswith('.KS'):
-            stock_code += '.KS'
-        
+        # stock_tracker에서 자동으로 포맷팅하므로 여기서는 그대로 전달
         success = tracker.add_stock(stock_code, stock_name)
         if success:
             flash(f'{stock_name} 종목이 추가되었습니다.', 'success')
