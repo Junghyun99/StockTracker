@@ -246,6 +246,16 @@
                                                 {% if stock.error_message %}
                                                     <br><small class="text-muted">{{ stock.error_message[:50] }}...</small>
                                                 {% endif %}
+                                            {% elif stock.status == 'no_data' %}
+                                                <span class="badge bg-warning">
+                                                    <i class="fas fa-question-circle me-1"></i>
+                                                    데이터 없음
+                                                </span>
+                                            {% elif stock.status == 'outdated' %}
+                                                <span class="badge bg-secondary">
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    업데이트 필요
+                                                </span>
                                             {% else %}
                                                 <span class="badge bg-success">
                                                     <i class="fas fa-check me-1"></i>

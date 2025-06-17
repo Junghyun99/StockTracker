@@ -212,7 +212,7 @@ class StockTracker:
                 'decline_rate': data.get('decline_rate'),
                 'last_updated': data.get('last_updated'),
                 'error_message': data.get('error_message'),
-                'status': 'error' if data.get('error_message') else 'success',
+                'status': self._get_stock_status(data),
                 'market_type': data.get('market_type', 'KRX'),
                 'original_code': data.get('original_code', stock_code)
             }
@@ -284,3 +284,27 @@ class StockTracker:
             'OTHER': '기타'
         }
         return market_names.get(market_type, '기타')
+    
+    def _get_stock_status(self, data: Dict) -> str:
+        """주식 데이터 상태 분석"""
+        # 오류가 있는 경우
+        if data.get('error_message'):
+            return 'error'
+        
+        # 데이터가 없는 경우
+        if not data.get('current_price') or not data.get('recent_high'):
+            return 'no_data'
+        
+        # 업데이트가 오래된 경우 (24시간 이상)
+        last_updated = data.get('last_updated')
+        if last_updated:
+            try:
+                from datetime import datetime, timedelta
+                updated_time = datetime.fromisoformat(last_updated)
+                if datetime.now() - updated_time > timedelta(hours=24):
+                    return 'outdated'
+            except:
+                pass
+        
+        # 정상 상태
+        return 'success'

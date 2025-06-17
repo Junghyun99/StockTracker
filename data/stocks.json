@@ -46,5 +46,18 @@
     "decline_rate": 13.174117434768254,
     "error_message": null,
     "market_type": "US"
+  },
+  "MSFT": {
+    "name": "Microsoft",
+    "code": "MSFT",
+    "original_code": "MSFT",
+    "added_date": "2025-06-17T22:39:17.489681",
+    "last_updated": "2025-06-17T22:39:17.591351",
+    "current_price": 478.0400085449219,
+    "recent_high": 480.69000244140625,
+    "recent_high_date": "2025-06-16",
+    "decline_rate": 0.5512895801920482,
+    "error_message": null,
+    "market_type": "US"
   }
 }
