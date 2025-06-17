@@ -115,40 +115,48 @@
     </div>
 
     <!-- 통계 카드 섹션 -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card bg-primary">
-                <div class="card-body text-center text-white">
-                    <i class="fas fa-list fa-2x mb-2"></i>
-                    <h4>{{ stocks|length }}</h4>
-                    <p class="mb-0">추적 종목</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success">
-                <div class="card-body text-center text-white">
-                    <i class="fas fa-arrow-up fa-2x mb-2"></i>
-                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'low')|list|length }}</h4>
-                    <p class="mb-0">낮은 하락률 (5% 미만)</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-warning">
-                <div class="card-body text-center text-white">
-                    <i class="fas fa-minus fa-2x mb-2"></i>
-                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'medium')|list|length }}</h4>
-                    <p class="mb-0">중간 하락률 (5-15%)</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-danger">
-                <div class="card-body text-center text-white">
-                    <i class="fas fa-arrow-down fa-2x mb-2"></i>
-                    <h4>{{ stocks|selectattr('decline_status', 'equalto', 'high')|list|length }}</h4>
-                    <p class="mb-0">높은 하락률 (15% 이상)</p>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body py-2">
+                    <div class="row text-center">
+                        <div class="col-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fas fa-list text-primary me-2"></i>
+                                <div>
+                                    <strong class="h5 mb-0">{{ stocks|length }}</strong>
+                                    <small class="text-muted d-block">추적종목</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fas fa-arrow-up text-success me-2"></i>
+                                <div>
+                                    <strong class="h5 mb-0 text-success">{{ stocks|selectattr('decline_status', 'equalto', 'low')|list|length }}</strong>
+                                    <small class="text-muted d-block">낮은하락</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fas fa-minus text-warning me-2"></i>
+                                <div>
+                                    <strong class="h5 mb-0 text-warning">{{ stocks|selectattr('decline_status', 'equalto', 'medium')|list|length }}</strong>
+                                    <small class="text-muted d-block">중간하락</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fas fa-arrow-down text-danger me-2"></i>
+                                <div>
+                                    <strong class="h5 mb-0 text-danger">{{ stocks|selectattr('decline_status', 'equalto', 'high')|list|length }}</strong>
+                                    <small class="text-muted d-block">높은하락</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
