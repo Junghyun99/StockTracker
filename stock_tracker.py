@@ -239,9 +239,9 @@ class StockTracker:
                 stock_info['decline_rate_formatted'] = f"{stock_info['decline_rate']:.2f}%"
                 
                 # 하락률에 따른 상태 분류
-                if stock_info['decline_rate'] < 5:
+                if stock_info['decline_rate'] <= 10:
                     stock_info['decline_status'] = 'low'
-                elif stock_info['decline_rate'] < 15:
+                elif stock_info['decline_rate'] <= 30:
                     stock_info['decline_status'] = 'medium'
                 else:
                     stock_info['decline_status'] = 'high'
