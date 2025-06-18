@@ -40,47 +40,49 @@ jobs:
         python -m pip install --upgrade pip
         pip install yfinance requests flask
     
-    - name: Update stock data
+    - name: Create update script
+      run: |
+        cat > auto_update.py << 'EOF'
+        import sys
+        import os
+        sys.path.append(os.getcwd())
+
+        try:
+            from stock_tracker import StockTracker
+            import logging
+
+            logging.basicConfig(level=logging.INFO)
+            tracker = StockTracker()
+
+            print(f'현재 추적 중인 종목 수: {len(tracker.stocks)}')
+
+            if len(tracker.stocks) > 0:
+                try:
+                    updated_count = tracker.refresh_all_stocks()
+                    print(f'업데이트된 종목 수: {updated_count}')
+                    
+                    stocks = tracker.get_tracked_stocks()
+                    for stock in stocks:
+                        name = stock.get('name', '')
+                        decline = stock.get('decline_rate_formatted', 'N/A')
+                        status = stock.get('decline_status', 'unknown')
+                        print(f'{name}: {decline} ({status})')
+                except Exception as e:
+                    print(f'데이터 업데이트 중 오류: {e}')
+            else:
+                print('추적 중인 종목이 없습니다.')
+                
+        except ImportError as e:
+            print(f'모듈 import 오류: {e}')
+            print('필요한 파일들이 있는지 확인하세요.')
+        except Exception as e:
+            print(f'예상치 못한 오류: {e}')
+        EOF
+
+    - name: Run stock data update
       run: |
         echo "Starting stock data update..."
-        python -c "
-import sys
-import os
-sys.path.append(os.getcwd())
-
-try:
-    from stock_tracker import StockTracker
-    import logging
-
-    logging.basicConfig(level=logging.INFO)
-    tracker = StockTracker()
-
-    print(f'현재 추적 중인 종목 수: {len(tracker.stocks)}')
-
-    if len(tracker.stocks) > 0:
-        try:
-            updated_count = tracker.refresh_all_stocks()
-            print(f'업데이트된 종목 수: {updated_count}')
-            
-            # 결과 출력
-            stocks = tracker.get_tracked_stocks()
-            for stock in stocks:
-                name = stock.get('name', '')
-                decline = stock.get('decline_rate_formatted', 'N/A')
-                status = stock.get('decline_status', 'unknown')
-                print(f'{name}: {decline} ({status})')
-        except Exception as e:
-            print(f'데이터 업데이트 중 오류: {e}')
-            sys.exit(0)  # 오류가 있어도 워크플로우는 계속 진행
-    else:
-        print('추적 중인 종목이 없습니다.')
-        
-except ImportError as e:
-    print(f'모듈 import 오류: {e}')
-    print('필요한 파일들이 있는지 확인하세요.')
-except Exception as e:
-    print(f'예상치 못한 오류: {e}')
-"
+        python auto_update.py
     
     - name: Generate static HTML
       run: |
@@ -111,43 +113,46 @@ except Exception as e:
         git commit -m "Auto-update stock data - $(date '+%Y-%m-%d %H:%M:%S UTC')"
         git push
     
+    - name: Create summary script
+      run: |
+        cat > create_summary.py << 'EOF'
+        from stock_tracker import StockTracker
+        import json
+        from datetime import datetime
+
+        tracker = StockTracker()
+        stocks = tracker.get_tracked_stocks()
+
+        if stocks:
+            low_count = len([s for s in stocks if s.get('decline_status') == 'low'])
+            medium_count = len([s for s in stocks if s.get('decline_status') == 'medium'])
+            high_count = len([s for s in stocks if s.get('decline_status') == 'high'])
+            
+            print(f'**총 추적 종목:** {len(stocks)}개')
+            print(f'**주의권 (10% 이하):** {low_count}개')
+            print(f'**경고권 (10-30%):** {medium_count}개')
+            print(f'**발동권 (30% 이상):** {high_count}개')
+            print('')
+            print('### 📈 종목별 현황')
+            print('| 종목명 | 현재가 | 고점 | 하락률 | 상태 |')
+            print('|--------|--------|------|--------|------|')
+            
+            for stock in sorted(stocks, key=lambda x: x.get('decline_rate', 0) or 0, reverse=True):
+                name = stock.get('name', 'N/A')
+                current = stock.get('current_price_formatted', 'N/A')
+                high = stock.get('recent_high_formatted', 'N/A')
+                decline = stock.get('decline_rate_formatted', 'N/A')
+                status_map = {'low': '주의권', 'medium': '경고권', 'high': '발동권'}
+                status = status_map.get(stock.get('decline_status'), 'N/A')
+                print(f'| {name} | {current} | {high} | {decline} | {status} |')
+        else:
+            print('추적 중인 종목이 없습니다.')
+        EOF
+
     - name: Create summary
       run: |
         echo "## 📊 Stock Data Update Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Update Time:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        
-        python -c "
-from stock_tracker import StockTracker
-import json
-from datetime import datetime
-
-tracker = StockTracker()
-stocks = tracker.get_tracked_stocks()
-
-if stocks:
-    low_count = len([s for s in stocks if s.get('decline_status') == 'low'])
-    medium_count = len([s for s in stocks if s.get('decline_status') == 'medium'])
-    high_count = len([s for s in stocks if s.get('decline_status') == 'high'])
-    
-    print(f'**총 추적 종목:** {len(stocks)}개')
-    print(f'**주의권 (10% 이하):** {low_count}개')
-    print(f'**경고권 (10-30%):** {medium_count}개')
-    print(f'**발동권 (30% 이상):** {high_count}개')
-    print('')
-    print('### 📈 종목별 현황')
-    print('| 종목명 | 현재가 | 고점 | 하락률 | 상태 |')
-    print('|--------|--------|------|--------|------|')
-    
-    for stock in sorted(stocks, key=lambda x: x.get('decline_rate', 0) or 0, reverse=True):
-        name = stock.get('name', 'N/A')
-        current = stock.get('current_price_formatted', 'N/A')
-        high = stock.get('recent_high_formatted', 'N/A')
-        decline = stock.get('decline_rate_formatted', 'N/A')
-        status_map = {'low': '주의권', 'medium': '경고권', 'high': '발동권'}
-        status = status_map.get(stock.get('decline_status'), 'N/A')
-        print(f'| {name} | {current} | {high} | {decline} | {status} |')
-else:
-    print('추적 중인 종목이 없습니다.')
-" >> $GITHUB_STEP_SUMMARY
+        python create_summary.py >> $GITHUB_STEP_SUMMARY
