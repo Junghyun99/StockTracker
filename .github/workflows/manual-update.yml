@@ -1,0 +1,127 @@
+name: Manual Stock Data Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Update type'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - korean_only
+        - us_only
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  manual-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install yfinance requests flask
+    
+    - name: Manual stock data update
+      run: |
+        echo "Manual update requested: ${{ github.event.inputs.update_type }}"
+        python -c "
+import sys
+import os
+sys.path.append(os.getcwd())
+
+try:
+    from stock_tracker import StockTracker
+    import logging
+
+    logging.basicConfig(level=logging.INFO)
+    tracker = StockTracker()
+    
+    update_type = '${{ github.event.inputs.update_type }}'
+    print(f'수동 업데이트 타입: {update_type}')
+    print(f'현재 추적 중인 종목 수: {len(tracker.stocks)}')
+
+    if len(tracker.stocks) > 0:
+        if update_type == 'korean_only':
+            # 한국 주식만 업데이트
+            korean_stocks = [code for code in tracker.stocks.keys() if code.endswith('.KS')]
+            print(f'한국 주식 {len(korean_stocks)}개 업데이트 중...')
+            count = 0
+            for code in korean_stocks:
+                try:
+                    tracker.update_stock_data(code)
+                    count += 1
+                except Exception as e:
+                    print(f'오류 ({code}): {e}')
+            if count > 0:
+                tracker.save_stocks()
+            print(f'한국 주식 {count}개 업데이트 완료')
+        elif update_type == 'us_only':
+            # 미국 주식만 업데이트  
+            us_stocks = [code for code in tracker.stocks.keys() if not code.endswith('.KS') and not code.endswith('.T')]
+            print(f'미국 주식 {len(us_stocks)}개 업데이트 중...')
+            count = 0
+            for code in us_stocks:
+                try:
+                    tracker.update_stock_data(code)
+                    count += 1
+                except Exception as e:
+                    print(f'오류 ({code}): {e}')
+            if count > 0:
+                tracker.save_stocks()
+            print(f'미국 주식 {count}개 업데이트 완료')
+        else:
+            # 전체 업데이트
+            updated_count = tracker.refresh_all_stocks()
+            print(f'전체 {updated_count}개 종목 업데이트 완료')
+            
+        # 결과 출력
+        stocks = tracker.get_tracked_stocks()
+        print('\n=== 업데이트 결과 ===')
+        for stock in stocks:
+            name = stock.get('name', '')
+            decline = stock.get('decline_rate_formatted', 'N/A')
+            status = stock.get('decline_status', 'unknown')
+            print(f'{name}: {decline} ({status})')
+    else:
+        print('추적 중인 종목이 없습니다.')
+        
+except Exception as e:
+    print(f'수동 업데이트 중 오류: {e}')
+"
+    
+    - name: Generate static HTML
+      run: |
+        echo "Generating updated static HTML..."
+        python static_export.py
+    
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action (Manual)"
+    
+    - name: Commit and push changes
+      run: |
+        git add -A
+        if ! git diff --staged --quiet; then
+          git commit -m "Manual update (${{ github.event.inputs.update_type }}) - $(date '+%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "Changes committed and pushed"
+        else
+          echo "No changes to commit"
+        fi
