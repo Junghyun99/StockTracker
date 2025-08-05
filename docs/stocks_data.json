@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-08-05T21:35:30.088725",
+  "last_updated": "2025-08-05T21:48:52.649296",
   "stocks": [
     {
       "code": "035420.KS",
@@ -8,7 +8,7 @@
       "recent_high": 295000.0,
       "recent_high_date": "2025-06-23",
       "decline_rate": 21.35593220338983,
-      "last_updated": "2025-08-05T21:35:29.150810",
+      "last_updated": "2025-08-05T21:48:51.524060",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -17,7 +17,7 @@
       "recent_high_formatted": "295,000원",
       "decline_rate_formatted": "21.36%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-08-05 21:35",
+      "last_updated_formatted": "2025-08-05 21:48",
       "market_display": "한국"
     },
     {
@@ -27,7 +27,7 @@
       "recent_high": 306500.0,
       "recent_high_date": "2025-07-11",
       "decline_rate": 14.02936378466558,
-      "last_updated": "2025-08-05T21:35:28.942455",
+      "last_updated": "2025-08-05T21:48:51.320078",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -36,7 +36,7 @@
       "recent_high_formatted": "306,500원",
       "decline_rate_formatted": "14.03%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-08-05 21:35",
+      "last_updated_formatted": "2025-08-05 21:48",
       "market_display": "한국"
     },
     {
@@ -46,7 +46,7 @@
       "recent_high": 216.22999572753906,
       "recent_high_date": "2025-07-07",
       "decline_rate": 6.155481580531978,
-      "last_updated": "2025-08-05T21:35:29.349686",
+      "last_updated": "2025-08-05T21:48:51.850851",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -55,7 +55,7 @@
       "recent_high_formatted": "$216.23",
       "decline_rate_formatted": "6.16%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-08-05 21:35",
+      "last_updated_formatted": "2025-08-05 21:48",
       "market_display": "미국"
     },
     {
@@ -65,7 +65,7 @@
       "recent_high": 74000.0,
       "recent_high_date": "2025-07-31",
       "decline_rate": 5.540540540540541,
-      "last_updated": "2025-08-05T21:35:28.762652",
+      "last_updated": "2025-08-05T21:48:51.045752",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -74,7 +74,7 @@
       "recent_high_formatted": "74,000원",
       "decline_rate_formatted": "5.54%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-08-05 21:35",
+      "last_updated_formatted": "2025-08-05 21:48",
       "market_display": "한국"
     },
     {
@@ -84,7 +84,7 @@
       "recent_high": 555.4500122070312,
       "recent_high_date": "2025-07-31",
       "decline_rate": 4.986949608114637,
-      "last_updated": "2025-08-05T21:35:29.518316",
+      "last_updated": "2025-08-05T21:48:52.103910",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -93,7 +93,7 @@
       "recent_high_formatted": "$555.45",
       "decline_rate_formatted": "4.99%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-08-05 21:35",
+      "last_updated_formatted": "2025-08-05 21:48",
       "market_display": "미국"
     }
   ],
