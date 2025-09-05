@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-09-05T19:15:04.633644",
+  "last_updated": "2025-09-05T19:26:26.501282",
   "stocks": [
     {
       "code": "035420.KS",
@@ -8,7 +8,7 @@
       "recent_high": 295000.0,
       "recent_high_date": "2025-06-23",
       "decline_rate": 22.372881355932204,
-      "last_updated": "2025-09-05T19:15:03.509861",
+      "last_updated": "2025-09-05T19:26:25.477168",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -17,26 +17,26 @@
       "recent_high_formatted": "295,000원",
       "decline_rate_formatted": "22.37%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-09-05 19:15",
+      "last_updated_formatted": "2025-09-05 19:26",
       "market_display": "한국"
     },
     {
       "code": "MSFT",
       "name": "Microsoft",
-      "current_price": 493.17999267578125,
+      "current_price": 494.89349365234375,
       "recent_high": 554.5383762548963,
       "recent_high_date": "2025-07-31",
-      "decline_rate": 11.064767779193588,
-      "last_updated": "2025-09-05T19:15:04.115296",
+      "decline_rate": 10.755771855749169,
+      "last_updated": "2025-09-05T19:26:25.946831",
       "error_message": null,
       "status": "success",
       "market_type": "US",
       "original_code": "MSFT",
-      "current_price_formatted": "$493.18",
+      "current_price_formatted": "$494.89",
       "recent_high_formatted": "$554.54",
-      "decline_rate_formatted": "11.06%",
+      "decline_rate_formatted": "10.76%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-09-05 19:15",
+      "last_updated_formatted": "2025-09-05 19:26",
       "market_display": "미국"
     },
     {
@@ -46,7 +46,7 @@
       "recent_high": 306057.94269949064,
       "recent_high_date": "2025-07-11",
       "decline_rate": 10.637836225494834,
-      "last_updated": "2025-09-05T19:15:03.278601",
+      "last_updated": "2025-09-05T19:26:25.355784",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -55,7 +55,7 @@
       "recent_high_formatted": "306,058원",
       "decline_rate_formatted": "10.64%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-09-05 19:15",
+      "last_updated_formatted": "2025-09-05 19:26",
       "market_display": "한국"
     },
     {
@@ -65,7 +65,7 @@
       "recent_high": 74000.0,
       "recent_high_date": "2025-07-31",
       "decline_rate": 6.081081081081082,
-      "last_updated": "2025-09-05T19:15:02.943179",
+      "last_updated": "2025-09-05T19:26:25.168590",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -74,7 +74,7 @@
       "recent_high_formatted": "74,000원",
       "decline_rate_formatted": "6.08%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-09-05 19:15",
+      "last_updated_formatted": "2025-09-05 19:26",
       "market_display": "한국"
     },
     {
@@ -84,7 +84,7 @@
       "recent_high": 241.32000732421875,
       "recent_high_date": "2025-09-05",
       "decline_rate": 0.5511361638854091,
-      "last_updated": "2025-09-05T19:15:03.866808",
+      "last_updated": "2025-09-05T19:26:25.713047",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -93,7 +93,7 @@
       "recent_high_formatted": "$241.32",
       "decline_rate_formatted": "0.55%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-09-05 19:15",
+      "last_updated_formatted": "2025-09-05 19:26",
       "market_display": "미국"
     }
   ],
