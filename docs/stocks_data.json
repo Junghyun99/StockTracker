@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-09-08T13:37:35.149758",
+  "last_updated": "2025-09-08T13:49:35.319944",
   "stocks": [
     {
       "code": "035420.KS",
@@ -8,7 +8,7 @@
       "recent_high": 295000.0,
       "recent_high_date": "2025-06-23",
       "decline_rate": 22.372881355932204,
-      "last_updated": "2025-09-08T13:37:34.022644",
+      "last_updated": "2025-09-08T13:49:34.382988",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -17,7 +17,7 @@
       "recent_high_formatted": "295,000원",
       "decline_rate_formatted": "22.37%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-09-08 13:37",
+      "last_updated_formatted": "2025-09-08 13:49",
       "market_display": "한국"
     },
     {
@@ -27,7 +27,7 @@
       "recent_high": 306057.94269949064,
       "recent_high_date": "2025-07-11",
       "decline_rate": 10.637836225494834,
-      "last_updated": "2025-09-08T13:37:33.765757",
+      "last_updated": "2025-09-08T13:49:34.248219",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -36,26 +36,26 @@
       "recent_high_formatted": "306,058원",
       "decline_rate_formatted": "10.64%",
       "decline_status": "medium",
-      "last_updated_formatted": "2025-09-08 13:37",
+      "last_updated_formatted": "2025-09-08 13:49",
       "market_display": "한국"
     },
     {
       "code": "MSFT",
       "name": "Microsoft",
-      "current_price": 499.2200012207031,
+      "current_price": 498.7950134277344,
       "recent_high": 554.5383762548963,
       "recent_high_date": "2025-07-31",
-      "decline_rate": 9.975572007800201,
-      "last_updated": "2025-09-08T13:37:34.591424",
+      "decline_rate": 10.052210129013547,
+      "last_updated": "2025-09-08T13:49:34.743089",
       "error_message": null,
       "status": "success",
       "market_type": "US",
       "original_code": "MSFT",
-      "current_price_formatted": "$499.22",
+      "current_price_formatted": "$498.80",
       "recent_high_formatted": "$554.54",
-      "decline_rate_formatted": "9.98%",
-      "decline_status": "low",
-      "last_updated_formatted": "2025-09-08 13:37",
+      "decline_rate_formatted": "10.05%",
+      "decline_status": "medium",
+      "last_updated_formatted": "2025-09-08 13:49",
       "market_display": "미국"
     },
     {
@@ -65,7 +65,7 @@
       "recent_high": 74000.0,
       "recent_high_date": "2025-07-31",
       "decline_rate": 6.081081081081082,
-      "last_updated": "2025-09-08T13:37:33.426269",
+      "last_updated": "2025-09-08T13:49:34.067828",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -74,33 +74,33 @@
       "recent_high_formatted": "74,000원",
       "decline_rate_formatted": "6.08%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-09-08 13:37",
+      "last_updated_formatted": "2025-09-08 13:49",
       "market_display": "한국"
     },
     {
       "code": "AAPL",
       "name": "Apple",
-      "current_price": 239.99000549316406,
+      "current_price": 239.22000122070312,
       "recent_high": 241.32000732421875,
       "recent_high_date": "2025-09-05",
-      "decline_rate": 0.5511361638854091,
-      "last_updated": "2025-09-08T13:37:34.339643",
+      "decline_rate": 0.8702163267773403,
+      "last_updated": "2025-09-08T13:49:34.568017",
       "error_message": null,
       "status": "success",
       "market_type": "US",
       "original_code": "AAPL",
-      "current_price_formatted": "$239.99",
+      "current_price_formatted": "$239.22",
       "recent_high_formatted": "$241.32",
-      "decline_rate_formatted": "0.55%",
+      "decline_rate_formatted": "0.87%",
       "decline_status": "low",
-      "last_updated_formatted": "2025-09-08 13:37",
+      "last_updated_formatted": "2025-09-08 13:49",
       "market_display": "미국"
     }
   ],
   "total_count": 5,
   "category_counts": {
-    "low": 3,
-    "medium": 2,
+    "low": 2,
+    "medium": 3,
     "high": 0
   }
 }
