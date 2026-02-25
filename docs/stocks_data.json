@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-25T10:12:43.892041",
+  "last_updated": "2026-02-25T11:10:32.683183",
   "stocks": [
     {
       "code": "MSFT",
@@ -8,7 +8,7 @@
       "recent_high": 492.3761849539621,
       "recent_high_date": "2025-12-02",
       "decline_rate": 20.995366573959686,
-      "last_updated": "2026-02-25T10:12:43.324429",
+      "last_updated": "2026-02-25T11:10:32.155462",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -17,7 +17,7 @@
       "recent_high_formatted": "$492.38",
       "decline_rate_formatted": "21.00%",
       "decline_status": "medium",
-      "last_updated_formatted": "2026-02-25 10:12",
+      "last_updated_formatted": "2026-02-25 11:10",
       "market_display": "미국"
     },
     {
@@ -27,7 +27,7 @@
       "recent_high": 292000.0,
       "recent_high_date": "2026-01-27",
       "decline_rate": 12.67123287671233,
-      "last_updated": "2026-02-25T10:12:42.753492",
+      "last_updated": "2026-02-25T11:10:31.751867",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -36,7 +36,7 @@
       "recent_high_formatted": "292,000원",
       "decline_rate_formatted": "12.67%",
       "decline_status": "medium",
-      "last_updated_formatted": "2026-02-25 10:12",
+      "last_updated_formatted": "2026-02-25 11:10",
       "market_display": "한국"
     },
     {
@@ -46,7 +46,7 @@
       "recent_high": 288.35019153510143,
       "recent_high_date": "2025-12-03",
       "decline_rate": 5.621697977852959,
-      "last_updated": "2026-02-25T10:12:43.040308",
+      "last_updated": "2026-02-25T11:10:31.925272",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -55,7 +55,7 @@
       "recent_high_formatted": "$288.35",
       "decline_rate_formatted": "5.62%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-02-25 10:12",
+      "last_updated_formatted": "2026-02-25 11:10",
       "market_display": "미국"
     },
     {
@@ -65,7 +65,7 @@
       "recent_high": 200000.0,
       "recent_high_date": "2026-02-24",
       "decline_rate": 0.0,
-      "last_updated": "2026-02-25T10:12:42.386161",
+      "last_updated": "2026-02-25T11:10:31.399744",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -74,7 +74,7 @@
       "recent_high_formatted": "200,000원",
       "decline_rate_formatted": "0.00%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-02-25 10:12",
+      "last_updated_formatted": "2026-02-25 11:10",
       "market_display": "한국"
     },
     {
@@ -84,7 +84,7 @@
       "recent_high": 1005000.0,
       "recent_high_date": "2026-02-24",
       "decline_rate": 0.0,
-      "last_updated": "2026-02-25T10:12:42.560418",
+      "last_updated": "2026-02-25T11:10:31.639311",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -93,7 +93,7 @@
       "recent_high_formatted": "1,005,000원",
       "decline_rate_formatted": "0.00%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-02-25 10:12",
+      "last_updated_formatted": "2026-02-25 11:10",
       "market_display": "한국"
     }
   ],
