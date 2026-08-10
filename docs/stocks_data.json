@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-10T12:27:01.116354",
+  "last_updated": "2026-08-10T13:54:20.253844",
   "stocks": [
     {
       "code": "000660.KS",
@@ -8,7 +8,7 @@
       "recent_high": 2987000.0,
       "recent_high_date": "2026-06-25",
       "decline_rate": 52.46066287244727,
-      "last_updated": "2026-08-10T12:27:00.130920",
+      "last_updated": "2026-08-10T13:54:18.766822",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -17,7 +17,7 @@
       "recent_high_formatted": "2,987,000원",
       "decline_rate_formatted": "52.46%",
       "decline_status": "high",
-      "last_updated_formatted": "2026-08-10 12:27",
+      "last_updated_formatted": "2026-08-10 13:54",
       "market_display": "한국"
     },
     {
@@ -27,7 +27,7 @@
       "recent_high": 374087.44831391243,
       "recent_high_date": "2026-06-19",
       "decline_rate": 38.51704968005305,
-      "last_updated": "2026-08-10T12:26:59.986958",
+      "last_updated": "2026-08-10T13:54:18.446705",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -36,7 +36,7 @@
       "recent_high_formatted": "374,087원",
       "decline_rate_formatted": "38.52%",
       "decline_status": "high",
-      "last_updated_formatted": "2026-08-10 12:26",
+      "last_updated_formatted": "2026-08-10 13:54",
       "market_display": "한국"
     },
     {
@@ -46,7 +46,7 @@
       "recent_high": 304000.0,
       "recent_high_date": "2026-06-01",
       "decline_rate": 30.427631578947366,
-      "last_updated": "2026-08-10T12:27:00.240066",
+      "last_updated": "2026-08-10T13:54:19.077074",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -55,52 +55,52 @@
       "recent_high_formatted": "304,000원",
       "decline_rate_formatted": "30.43%",
       "decline_status": "high",
-      "last_updated_formatted": "2026-08-10 12:27",
+      "last_updated_formatted": "2026-08-10 13:54",
       "market_display": "한국"
     },
     {
       "code": "AAPL",
       "name": "Apple",
-      "current_price": 313.3299865722656,
+      "current_price": 306.239990234375,
       "recent_high": 344.57000732421875,
       "recent_high_date": "2026-07-29",
-      "decline_rate": 9.066378410166799,
-      "last_updated": "2026-08-10T12:27:00.437631",
+      "decline_rate": 11.124014358503818,
+      "last_updated": "2026-08-10T13:54:19.441349",
       "error_message": null,
       "status": "success",
       "market_type": "US",
       "original_code": "AAPL",
-      "current_price_formatted": "$313.33",
+      "current_price_formatted": "$306.24",
       "recent_high_formatted": "$344.57",
-      "decline_rate_formatted": "9.07%",
-      "decline_status": "low",
-      "last_updated_formatted": "2026-08-10 12:27",
+      "decline_rate_formatted": "11.12%",
+      "decline_status": "medium",
+      "last_updated_formatted": "2026-08-10 13:54",
       "market_display": "미국"
     },
     {
       "code": "MSFT",
       "name": "Microsoft",
-      "current_price": 499.989990234375,
-      "recent_high": 505.17999267578125,
-      "recent_high_date": "2026-08-07",
-      "decline_rate": 1.0273570839407993,
-      "last_updated": "2026-08-10T12:27:00.577302",
+      "current_price": 505.7449951171875,
+      "recent_high": 508.8800048828125,
+      "recent_high_date": "2026-08-10",
+      "decline_rate": 0.6160607089183915,
+      "last_updated": "2026-08-10T13:54:19.723070",
       "error_message": null,
       "status": "success",
       "market_type": "US",
       "original_code": "MSFT",
-      "current_price_formatted": "$499.99",
-      "recent_high_formatted": "$505.18",
-      "decline_rate_formatted": "1.03%",
+      "current_price_formatted": "$505.74",
+      "recent_high_formatted": "$508.88",
+      "decline_rate_formatted": "0.62%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-08-10 12:27",
+      "last_updated_formatted": "2026-08-10 13:54",
       "market_display": "미국"
     }
   ],
   "total_count": 5,
   "category_counts": {
-    "low": 2,
-    "medium": 0,
+    "low": 1,
+    "medium": 1,
     "high": 3
   }
 }
