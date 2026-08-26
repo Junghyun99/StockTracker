@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-26T05:08:10.905470",
+  "last_updated": "2026-08-26T05:46:58.889058",
   "stocks": [
     {
       "code": "000660.KS",
@@ -8,7 +8,7 @@
       "recent_high": 2987000.0,
       "recent_high_date": "2026-06-25",
       "decline_rate": 43.82323401406093,
-      "last_updated": "2026-08-26T05:08:09.419241",
+      "last_updated": "2026-08-26T05:46:57.615728",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -17,7 +17,7 @@
       "recent_high_formatted": "2,987,000원",
       "decline_rate_formatted": "43.82%",
       "decline_status": "high",
-      "last_updated_formatted": "2026-08-26 05:08",
+      "last_updated_formatted": "2026-08-26 05:46",
       "market_display": "한국"
     },
     {
@@ -27,7 +27,7 @@
       "recent_high": 374087.44831391243,
       "recent_high_date": "2026-06-19",
       "decline_rate": 31.299485946841887,
-      "last_updated": "2026-08-26T05:08:09.162801",
+      "last_updated": "2026-08-26T05:46:57.395059",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -36,7 +36,7 @@
       "recent_high_formatted": "374,087원",
       "decline_rate_formatted": "31.30%",
       "decline_status": "high",
-      "last_updated_formatted": "2026-08-26 05:08",
+      "last_updated_formatted": "2026-08-26 05:46",
       "market_display": "한국"
     },
     {
@@ -46,7 +46,7 @@
       "recent_high": 304000.0,
       "recent_high_date": "2026-06-01",
       "decline_rate": 27.467105263157894,
-      "last_updated": "2026-08-26T05:08:09.663342",
+      "last_updated": "2026-08-26T05:46:57.818321",
       "error_message": null,
       "status": "success",
       "market_type": "KRX",
@@ -55,7 +55,7 @@
       "recent_high_formatted": "304,000원",
       "decline_rate_formatted": "27.47%",
       "decline_status": "medium",
-      "last_updated_formatted": "2026-08-26 05:08",
+      "last_updated_formatted": "2026-08-26 05:46",
       "market_display": "한국"
     },
     {
@@ -65,7 +65,7 @@
       "recent_high": 344.2730974331505,
       "recent_high_date": "2026-07-29",
       "decline_rate": 9.984254881646844,
-      "last_updated": "2026-08-26T05:08:10.097805",
+      "last_updated": "2026-08-26T05:46:58.069101",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -74,7 +74,7 @@
       "recent_high_formatted": "$344.27",
       "decline_rate_formatted": "9.98%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-08-26 05:08",
+      "last_updated_formatted": "2026-08-26 05:46",
       "market_display": "미국"
     },
     {
@@ -84,7 +84,7 @@
       "recent_high": 512.7647021753171,
       "recent_high_date": "2026-08-10",
       "decline_rate": 4.106115462105317,
-      "last_updated": "2026-08-26T05:08:10.358165",
+      "last_updated": "2026-08-26T05:46:58.290353",
       "error_message": null,
       "status": "success",
       "market_type": "US",
@@ -93,7 +93,7 @@
       "recent_high_formatted": "$512.76",
       "decline_rate_formatted": "4.11%",
       "decline_status": "low",
-      "last_updated_formatted": "2026-08-26 05:08",
+      "last_updated_formatted": "2026-08-26 05:46",
       "market_display": "미국"
     }
   ],
